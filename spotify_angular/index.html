@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mySpotifyApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Spotify Angular</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
+</head>
+<body>
+	<form  ng-submit="submit()" ng-controller="searchBox" >
+		<fieldset >
+			<legend>Search </legend>
+			<input type="text" ng-model="searchValue">
+			<button >Search Artist</button>
+		</fieldset>
+<!--creating the artist list-->
+		<fieldset>
+			<select name="" id="artists" ng-controller="artistController" ng-change="changeArtist()" ng-model="selectedArtistId">
+				<option value="{{ artist.id }}" ng-repeat="artist in artists">{{ artist.name }}</option>
+			</select>
+		</fieldset>
+
+<!--creating the album list-->
+		<fieldset>
+			<select name="" id="albums" ng-controller="albumController" ng-change="changeAlbum()" ng-model="selectedAlbumtId">
+				<option value="{{ album.id }}" ng-repeat="album in albums">{{ album.name }}</option>
+			</select>
+		</fieldset>
+<!--creating the track list-->
+		<div>
+
+			<ul name="" id="tracks" ng-change="changeTracks()" ng-model="selectedTracktId">
+				<a href="{{ track.preview_url}}" ng-repeat="track in tracks" target="_blank"><li ng-repeat="track in tracks">{{ track.name }}</li></a>
+			</ul>
+		</div>
+
+
+	</form>
+
+	<script>
+		angular.module("mySpotifyApp",[])
+
+/* controlador searchBox. When submited a value sets s list of artists. Returns  an array*/
+
+			.controller("searchBox", function($scope, $http) {
+
+				var urlApi = 'https://api.spotify.com/v1/search?type=artist&query='
+				$scope.artists = "";
+
+				$scope.submit = function() {
+					var url  = urlApi + $scope.searchValue
+					$http.get(url)
+						.then(function( dataFromApi ) {
+							// console.log( dataFromApi );
+							$scope.artists = dataFromApi.data.artists.items;
+							// console.log( $scope.artists );
+						})
+				}
+			})
+			
+/* Controller artistController. When we choose an artist sets a list of albums. Returns an array of albums */
+
+			.controller("artistController", function($scope, $http, $rootScope) {
+
+				var urlArtist = "https://api.spotify.com/v1/artists/" 
+				$scope.albums = "";
+				
+				$scope.changeArtist = function() {
+
+					// console.log( $scope.selectedArtistId );
+
+					var urlAlbumChosen  = urlArtist + $scope.selectedArtistId + "/albums";
+					$http.get(urlAlbumChosen)
+						.then(function( dataFromAlbum ) {
+							// console.log( dataFromAlbum );
+							// console.log("esto es dataFromAlbum")
+							$rootScope.albums = dataFromAlbum.data.items;
+							// console.log( $rootScope.albums );
+						})
+				}
+			})
+
+/* Controller albumController. Chosen an album returns an array of tracks */
+
+			.controller("albumController", function($scope, $http, $rootScope) {
+				
+				var urlAlbum = "https://api.spotify.com/v1/albums/" ;
+				$scope.tracks = "";
+				
+			
+				$scope.changeAlbum = function() {
+
+					// console.log( $scope.selectedAlbumId );
+
+
+					var urlTrackChosen  = urlAlbum + $scope.selectedAlbumtId + "/tracks";
+					$http.get(urlTrackChosen)
+						.then(function( dataFromTrack ) {
+							// console.log(urlTrackChosen);
+							// // console.log( dataFromTrack );
+							// console.log("esto es dataFromtrack")
+							$rootScope.tracks = dataFromTrack.data.items;
+							console.log( $rootScope.tracks );
+						})
+				}
+
+			})	
+			
+
+	</script>
+
+
+
+
+
+</body>
+</html>

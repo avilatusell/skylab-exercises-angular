@@ -1,0 +1,1 @@
+angular.module("myAppMovies",['ngRoute','moviesControllers','movieConfig'])

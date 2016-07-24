@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myAppRouting">
+<head>
+	<meta charset="UTF-8">
+	<title>Routes angular challenge</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head>
+<body>
+	<ul class="nav nav-pills">
+		  <li role="presentation" class="active"><a href="#/">Home</a></li>
+		  <li role="presentation"><a href="#/about">About</a></li>
+		  <li role="presentation"><a href="#/contact">Contact</a></li>
+		</ul>
+
+	<div class="container">
+		<h1 class="text-center">Hello!!This is my first application!</h1>
+		<div ng-view></div>
+	</div>
+
+
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.js'></script>
+
+
+	<script src="js/app.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/routing.js"></script>
+
+</body>
+</html>

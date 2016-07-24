@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Table Angular</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<div class="container" ng-controller="tableController" >
+
+		<table class="table table-bordered" >
+			<tr>
+				<th>Name</th>
+				<th>Mail</th>
+				<th>GitHub</th>
+			</tr>
+
+			<tr ng-repeat="oStudent in aStudents">
+				<td>{{oStudent.name}}</td>
+				<td>{{oStudent.email}}</td>
+				<td>{{oStudent.github}}</td>
+			</tr>
+		</table>
+	</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+</body>
+
+  <script src="app.js"></script>
+  <script src="controller.js"></script>
+
+</html>
+
+
